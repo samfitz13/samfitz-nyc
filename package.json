@@ -1,0 +1,15 @@
+{
+  "name": "samfitz-me-blog",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "pnpm parcel src/index.html"
+  },
+  "keywords": [],
+  "author": "github.com/samfitz13",
+  "license": "MIT",
+  "devDependencies": {
+    "parcel": "^2.12.0"
+  }
+}

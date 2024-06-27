@@ -1,4 +1,4 @@
-# samfitz.me
+# samfitz.nyc
 
 this website is built with html, [parceljs](https://parceljs.org), and [magick.css](https://github.com/wintermute-cell/magick.css)
 

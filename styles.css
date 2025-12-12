@@ -94,7 +94,7 @@ main {
 @media (max-width: 600px) {
   article,
   main {
-    padding: 0 0.2rem; /* 2 */
+    padding: 0 1rem;
   }
 }
 
@@ -307,6 +307,12 @@ dl {
 /* Add an indent to the definition term. */
 dd {
   margin: 0 1.6rem;
+}
+
+@media (max-width: 600px) {
+  dd {
+    margin: 0 0.5rem;
+  }
 }
 
 /* ===================================================================================================================== */
@@ -603,6 +609,13 @@ blockquote {
   margin-bottom: 4rem;
 }
 
+@media (max-width: 600px) {
+  blockquote {
+    max-width: 100%;
+    padding: 0 1rem;
+  }
+}
+
 /*
     1) Set a custom font for blockquote text paragraphs.
     2) Add some space between the paragraphs.
@@ -691,23 +704,83 @@ pre .line-number span {
 /* ============================================================================================================================ */
 
 /*
-    1) On mobile devices, sidenotes behave the same as asides.
-    2) Float the sidenotes to the right.
-    3) Make sure the sidenotes don't clash.
-    4) Set the width of the sidenotes to 40% of the main column.
-    5) Add padding, margins and a border for better visual separation.
-    6) Adjust typography to be more compact.
+    Sidenotes (Tufte-style)
+    Following Tufte CSS: content at 55% width, sidenotes float into the right 45%
 */
-.sidenote, /* 1 */
-aside {
-  float: right; /* 2 */
-  clear: right; /* 3 */
-  width: 40%; /* 4 */
-  margin: 1rem 1rem 1rem 3rem; /* 5 */
-  padding: 0.5rem 0.5rem 0.5rem 2rem; /* 5 */
-  border-left: 3px solid var(--fg); /* 5 */
-  font-size: 1.4rem; /* 6 */
-  line-height: 1.3; /* 6 */
+
+/* Blog sections need relative positioning for absolute sidenote placement */
+.blog section {
+  position: relative;
+}
+
+/* On wide screens, expand blog container and constrain content to leave room for sidenotes */
+@media (min-width: 1160px) {
+  .blog {
+    max-width: 100rem;
+  }
+
+  .blog section > p,
+  .blog section > ol,
+  .blog section > ul,
+  .blog section > blockquote {
+    width: 65%;
+  }
+
+  /* DL needs full width so DD sidenotes position correctly */
+  .blog section > dl {
+    width: 100%;
+  }
+
+  .blog section > dl dd {
+    width: 65%;
+    margin-left: 0;
+  }
+
+  /* Aside positioned in the right margin, not affecting text flow */
+  .blog section > aside {
+    position: absolute;
+    right: 0;
+    width: 30%;
+    margin: 0;
+    padding: 0;
+    border: none;
+  }
+}
+
+/* Mobile: sidenotes styled as inline footnotes after their paragraph */
+@media (max-width: 600px) {
+  .sidenote {
+    display: block;
+    width: 100%;
+    margin: 1rem 0 0 0;
+    padding: 0.8rem 1rem;
+    font-size: 1.3rem;
+    line-height: 1.4;
+    background-color: color-mix(in srgb, var(--fg) 5%, var(--bg));
+    border-left: 2px solid var(--fg);
+  }
+
+  /* Add "Note:" label before sidenote number on mobile */
+  .sidenote:before {
+    content: counter(sidenote-counter) ". ";
+    font-weight: 600;
+  }
+}
+
+/* Tablets and up: sidenotes float right inline */
+@media (min-width: 601px) {
+  .sidenote,
+  aside {
+    float: right;
+    clear: right;
+    width: 40%;
+    margin: 1rem 1rem 1rem 3rem;
+    padding: 0.5rem 0.5rem 0.5rem 2rem;
+    border-left: 3px solid var(--fg);
+    font-size: 1.4rem;
+    line-height: 1.3;
+    position: relative;
+  }
 }
 
 /* Prevent double top margins */
@@ -718,29 +791,17 @@ aside h4 {
   margin-top: 0;
 }
 
-/*
-    1) Set the distance from the main column.
-    2) Set the width of the element to a little less than the remaining space on one side, limited to 40% of the main column.
-    3) Remove any values set for the mobile version of the sidenotes.
-    4) Set the width to the variable defined above.
-    5) Set a negative right margin to (self-width + distance-from-main) to pull the sidenote to the right.
-*/
-/* Sadly, CSS does not support var() and rem in media queries, so we have to hardcode pixels. */
-/* This will break if the main column width is changed without adjusting this media query.    */
-@media (min-width: calc(760px + 400px)) {
+/* Wide screens: sidenotes in right margin with consistent left-edge alignment */
+@media (min-width: 1160px) {
   .sidenote {
-    --distance-from-main: 3rem; /* 1 */
-    --self-width: min(
-      calc((100vw - 760px) / 2 - (var(--distance-from-main))),
-      40%
-    ); /* 2 */
-    margin: 0; /* 3 */
-    padding: 0; /* 3 */
-    border: none; /* 3 */
-    width: var(--self-width);
-    margin-right: calc(
-      calc(var(--self-width) + var(--distance-from-main)) * -1
-    );
+    float: right;
+    clear: right;
+    margin-right: -50%;
+    width: 40%;
+    margin-top: 0.3rem;
+    margin-bottom: 0;
+    padding: 0;
+    border: none;
   }
 }
 

@@ -1,0 +1,19 @@
+about.html
+  s_02e89a804ac254::t_b8978abaab99d1 33
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "b27bfa5d2622871ab3784ae89582be62cea5b379",
+  "prompts": {},
+  "sessions": {
+    "s_02e89a804ac254": {
+      "agent_id": {
+        "tool": "droid",
+        "id": "96bbf862-7f87-497f-b0ed-f7e3c24d1ec3",
+        "model": "unknown"
+      },
+      "human_author": "Sam Fitzgerald <sam@factory.ai>"
+    }
+  }
+}
